@@ -22,7 +22,7 @@ def _create_prompt(message: str, system_prompt: None | str = None) -> Dict[str, 
 
 def prompt(message: str, system_prompt=None) -> str:
     # Create the prompt
-    body = _create_prompt(message)
+    body = _create_prompt(message, system_prompt)
 
     # Invoke the model
     response = bedrock.invoke_model(modelId=model_id, body=json.dumps(body))
