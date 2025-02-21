@@ -13,7 +13,7 @@ def _create_prompt(message: str, system_prompt: None | str = None) -> Dict[str, 
         "messages": [{"role": "user", "content": message}]
         if system_prompt is None
         else [
-            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": system_prompt},
             {"role": "user", "content": message},
         ],
         "temperature": 0.7,
