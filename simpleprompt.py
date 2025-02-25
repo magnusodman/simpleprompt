@@ -3,7 +3,7 @@ import boto3
 from typing import Dict, Any
 
 bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
-model_id = "anthropic.claude-3-7-sonnet-20250219-v1:0"
+model_id = "us.anthropic.claude-3-7-sonnet-20250219-v1:0"
 
 
 def _create_prompt(message: str, system_prompt: None | str = None) -> Dict[str, Any]:
@@ -25,7 +25,10 @@ def prompt(message: str, system_prompt=None) -> str:
     body = _create_prompt(message, system_prompt)
 
     # Invoke the model
-    response = bedrock.invoke_model(modelId=model_id, body=json.dumps(body))
+    response = bedrock.invoke_model(
+        modelId=model_id,
+        body=json.dumps(body)
+    )
 
     # Parse the response
     response_body = json.loads(response.get("body").read())
@@ -33,5 +36,10 @@ def prompt(message: str, system_prompt=None) -> str:
     return response_body["content"][0]["text"]
 
 
+def test_short_prompt():
+    response = prompt("Say just the word 'test'")
+    assert response.strip() == "test"
+
 if __name__ == "__main__":
-    print(prompt(message="What is the capital of France?"))
+    test_short_prompt()
+    print("Test passed!")
