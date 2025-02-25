@@ -2,8 +2,8 @@ import json
 import boto3
 from typing import Dict, Any
 
-bedrock = boto3.client("bedrock-runtime")
-model_id = "anthropic.claude-3-5-sonnet-20240620-v1:0"
+bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
+model_id = "anthropic.claude-3-7-sonnet-20250219-v1:0"
 
 
 def _create_prompt(message: str, system_prompt: None | str = None) -> Dict[str, Any]:
